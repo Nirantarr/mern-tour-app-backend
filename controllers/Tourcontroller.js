@@ -44,7 +44,7 @@ export const deleteTour=async(req,res)=>{
 export const getSingleTour=async(req,res)=>{
     const id = req.params.id;
     try {
-        const SingleTour = await Tour.findById(id)
+        const SingleTour = await Tour.findById(id).populate("reviews")
         res.status(200).json({
             success:true,
             message:"successfully fetched",
@@ -56,7 +56,7 @@ export const getSingleTour=async(req,res)=>{
 }
 export const getAllTour=async(req,res)=>{
     try {
-        const AllTour = await Tour.find()
+        const AllTour = await Tour.find().populate("reviews")
         res.status(200).json({
             success:true,
             message:"successfully fetched",
@@ -70,7 +70,7 @@ export const getAllTourPage=async(req,res)=>{
     // For pagination
     const page = parseInt(req.query.page);
     try {
-        const AllTour = await Tour.find().skip(page*5).Limit(8);
+        const AllTour = await Tour.find().populate("reviews").skip(page*5).Limit(8);
         res.status(200).json({
             success:true,
             message:"successfully fetched",
