@@ -54,30 +54,38 @@ export const getSingleTour=async(req,res)=>{
         res.status(500).json({success:false,message:"failed to fetch, Try again"});
     }
 }
-export const getAllTour=async(req,res)=>{
-    try {
-        const AllTour = await Tour.find().populate("reviews")
-        res.status(200).json({
-            success:true,
-            message:"successfully fetched",
-            data:AllTour
-        });
-    } catch (error) {
-        res.status(500).json({success:false,message:"failed to fetch, Try again"});
-    }
-}
+// export const getAllTour=async(req,res)=>{
+//     try {
+//         const AllTour = await Tour.find().populate("reviews")
+//         res.status(200).json({
+//             success:true,
+//             message:"successfully fetched",
+//             data:AllTour
+//         });
+//     } catch (error) {
+//         res.status(500).json({success:false,message:"failed to fetch, Try again"});
+//     }
+// }
 export const getAllTourPage=async(req,res)=>{
     // For pagination
-    const page = parseInt(req.query.page);
     try {
-        const AllTour = await Tour.find().populate("reviews").skip(page*5).Limit(8);
+        const page = parseInt(req.query.page);
+        if(!page && page!==0){
+            const AllTour = await Tour.find().populate("reviews")
+                 return   res.status(200).json({
+                        success:true,
+                        message:"successfully fetched",
+                        data:AllTour
+                    });
+        }
+        const AllTour = await Tour.find().populate("reviews").skip(page*8).limit(8);
         res.status(200).json({
             success:true,
             message:"successfully fetched",
             data:AllTour
         });
     } catch (error) {
-        res.status(500).json({success:false,message:"failed to fetch, Try again"});
+        res.status(500).json({success:false,message:"failed to fetch tour page , Try again"});
     }
 }
 
