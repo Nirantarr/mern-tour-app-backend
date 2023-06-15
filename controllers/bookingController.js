@@ -6,7 +6,7 @@ export const Createbooking=async(req,res)=>{
         const savedBooking = await newBooking.save();
         res.status(200).json({
             success:true,
-            message:"Booking Successfull",
+            message:"Booking Successful",
             data:savedBooking
         })
     } catch (error) {
@@ -33,6 +33,7 @@ export const GetSingleBooking=async(req,res)=>{
     }
 }
 export const GetAllBooking=async(req,res)=>{
+    
     try {
         const book  = await Booking.find(); 
         res.status(200).json({
