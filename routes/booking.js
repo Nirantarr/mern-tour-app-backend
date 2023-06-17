@@ -4,8 +4,8 @@ import { verifyuser ,verifyAdmin} from '../utils/verifyToken.js';
 
 const router = express.Router();
 
-router.post('/',Createbooking);
-router.get('/:id',GetSingleBooking);
-router.get('/',GetAllBooking);
+router.post('/',verifyuser,Createbooking);
+router.get('/:id',verifyuser,GetSingleBooking);
+router.get('/',verifyuser,GetAllBooking);
 
 export default router;
